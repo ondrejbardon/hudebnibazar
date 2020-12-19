@@ -1,5 +1,9 @@
-# General files for the project
+# General files for the project + artefacts
 links_seen.txt
+.zip
+.terraform
+.terraform/
+*.tfstate.backup
 
 # OSX leaves these everywhere on SMB shares
 ._*
@@ -25,3 +29,10 @@ links_seen.txt
 *.un~
 Session.vim
 .netrwhist
+
+terraform.tfstate.backup
+*.tfstate
+.terraform
+hudebnibazar.zip
+package
+package/*

@@ -1,13 +1,15 @@
 import os
 import requests
+import boto3
 from bs4 import BeautifulSoup
 from spontit import SpontitResource
 
 BASE_URL = "https://hudebnibazar.cz"
 URL = "https://hudebnibazar.cz/kytarove-efekty/110500/"
-KEYWORDS = ["chase", "walrus", "earthquaker", "neunaber", "strymon", "empress", "jhs", "pladask", "keeley", "red panda", "meris", "obne", "old blood noise", "eqd"]
-USERNAME = "welcomeboredom22700"
-SECRET_KEY = "EOW8UUSMLG0UTUBF1MNOV0TG2T2QEN4HD67XCTWAQTDPHS1GJD3B29H8ZBYJSDI9CTECPVRJNW1D7YQD6T0ADSEFKGF57UB10EF2"
+KEYWORDS = ["montreal assembly", "drolo", "chase", "walrus", "earthquaker", "neunaber", "strymon", "empress",
+        "jhs", "pladask", "keeley", "red panda", "meris", "obne", "old blood noise", "eqd", "digitakt", "zvex"]
+SPONTIT_USERNAME = "USER"
+SPONTIT_SECRET_KEY = "SECRET"
 
 def get_links(url, keywords) -> list:
 
@@ -34,9 +36,42 @@ def check_file_and_notify(links) -> list:
                 new_links.append(link)
     return(new_links)
                 
+# def create_table(dynamodb=None, table_name):
+#     if not dynamodb:
+#         dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+
+#     table = dynamodb.create_table(
+#         TableName=table_name,
+#         KeySchema=[
+#             {
+#                 'AttributeName': 'link',
+#                 'KeyType': 'HASH'  # Partition key
+#             },
+#             {
+#                 'AttributeName': 'date',
+#                 'KeyType': 'RANGE'  # Sort key
+#             }
+#         ],
+#         AttributeDefinitions=[
+#             {
+#                 'AttributeName': 'link',
+#                 'AttributeType': 'S'
+#             },
+#             {
+#                 'AttributeName': 'date',
+#                 'AttributeType': 'S'
+#             },
+
+#         ],
+#         ProvisionedThroughput={
+#             'ReadCapacityUnits': 10,
+#             'WriteCapacityUnits': 10
+#         }
+#     )
+#     return table
 
 def send_push_notification(notification):
-    resource = SpontitResource(USERNAME, SECRET_KEY)
+    resource = SpontitResource(SPONTIT_USERNAME, SPONTIT_SECRET_KEY)
     response = resource.push(notification)
 
 if __name__ == "__main__":
